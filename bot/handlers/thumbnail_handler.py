@@ -5,13 +5,11 @@ from bot.plugins import thumbnail_video
 
 thumbnail_path = os_path_join(CONFIG.ROOT, CONFIG.WORKDIR, CONFIG.THUMBNAIL_NAME)
 
-@Client.on_message(Filters.command(COMMAND.SET_THUMBNAIL))
-async def set(client : Client, message: Message):
-    if not message.photo:
-        return await message.reply_text(LOCAL.THUMBNAIL_NO_PHOTO.format(cmd_set_thumbnail = COMMAND.SET_THUMBNAIL))
-    reply = await message.reply_text(LOCAL.THUMBNAIL_DOWNLOADING)
-    await message.download(
-        file_name = thumbnail_path
+@Client.on_message(Filters.command("savethumb") & Filters.incoming)
+async def set(client, message):
+    if message.reply_to_message is not None:
+        name = str(message.from_user.id) + "/" + ".jpg"
+        thumbnail_path = os_path_join(CONFIG.ROOT, CONFIG.WORKDIR, name)
     )
     await reply.edit_text(LOCAL.THUMBNAIL_DOWNLOADED)
     await thumbnail_video.set(thumbnail_path)
