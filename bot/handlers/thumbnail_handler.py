@@ -9,7 +9,7 @@ thumbnail_path = os_path_join(CONFIG.ROOT, CONFIG.WORKDIR, CONFIG.THUMBNAIL_NAME
 async def set(client, message):
     if message.reply_to_message is not None:
         name = str(message.from_user.id) + "/" + ".jpg"
-        thumbnail_path = os_path_join(CONFIG.ROOT, CONFIG.WORKDIR, name)
+        thumbnail_path = os_path_join(CONFIG.ROOT, CONFIG.WORKDIR, name
     )
     await reply.edit_text(LOCAL.THUMBNAIL_DOWNLOADED)
     await thumbnail_video.set(thumbnail_path)
